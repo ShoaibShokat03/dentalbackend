@@ -162,13 +162,7 @@ class InventoryController extends Controller
                 ];
             }
 
-            $itemToDelete = InventoryCategories::findOne($request['id']);
-            if ($user == $itemToDelete) {
-                return [
-                    'success' => false,
-                    'message' => 'You cannot delete yourself!',
-                ];
-            }
+            $itemToDelete = Inventory::findOne($request['id']);
 
             if ($itemToDelete->delete()) {
                 return [

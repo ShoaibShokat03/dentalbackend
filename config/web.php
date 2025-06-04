@@ -47,6 +47,7 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+
                 'POST api/user/register' => 'api/user/register',
                 'POST api/user/login' => 'api/user/login',
                 'GET api/user/profile' => 'api/user/profile',
