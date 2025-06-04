@@ -27,8 +27,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <title><?= Html::encode($this->title) ?></title>
     <!-- <?php $this->head() ?> -->
 
-    <script type="module" crossorigin src="<?= Yii::getAlias('@web/assets/index-DYSyq1r9.js') ?>"></script>
-    <link rel="stylesheet" crossorigin href="<?= Yii::getAlias('@web/assets/main-BTdjcqq-.css') ?>">
+    <script type="module" crossorigin src="<?= Yii::getAlias('@web/assets/main-CuQpPdwF.js') ?>"></script>
+    <link rel="stylesheet" crossorigin href="<?= Yii::getAlias('@web/assets/main-DjBDRwYw.css') ?>">
 </head>
 
 <body class="d-flex flex-column h-100">

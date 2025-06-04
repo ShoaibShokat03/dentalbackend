@@ -135,6 +135,32 @@ $config = [
                 
                 'POST api/genericrecords/delete' => 'api/genericrecords/delete',
                 'OPTIONS api/genericrecords/delete' => 'api/genericrecords/delete',
+
+                //Appointments
+                'GET api/appointments/list' => 'api/appointment/list',
+                'OPTIONS api/appointments/list' => 'api/appointment/list',
+
+                'POST api/appointments/create' => 'api/appointment/create',
+                'OPTIONS api/appointments/create' => 'api/appointment/create',
+
+                'POST api/appointments/edit' => 'api/appointment/edit',
+                'OPTIONS api/appointments/edit' => 'api/appointment/edit',
+                
+                'POST api/appointments/delete' => 'api/appointment/delete',
+                'OPTIONS api/appointments/delete' => 'api/appointment/delete',
+
+                //Prescription
+                'GET api/prescriptions/list' => 'api/prescription/list',
+                'OPTIONS api/prescriptions/list' => 'api/prescription/list',
+
+                'POST api/prescriptions/create' => 'api/prescription/create',
+                'OPTIONS api/prescriptions/create' => 'api/prescription/create',
+
+                'POST api/prescriptions/edit' => 'api/prescription/edit',
+                'OPTIONS api/prescriptions/edit' => 'api/prescription/edit',
+                
+                'POST api/prescriptions/delete' => 'api/prescription/delete',
+                'OPTIONS api/prescriptions/delete' => 'api/prescription/delete',
             ],
         ],
     ],
