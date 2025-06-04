@@ -64,6 +64,7 @@ class DashboardController extends Controller
         $inventoryCount = Inventory::find()->count();
         $invoicesCount = Invoices::find()->count();
         $priscriptionsCount = Prescriptions::find()->count();
+        // $appointmentsCount = Appointments::find()->count();
 
         return [
             'success' => true,
@@ -75,6 +76,7 @@ class DashboardController extends Controller
                 'inventory_count' => $inventoryCount,
                 'priscriptions_count' => $priscriptionsCount,
                 'invoices_count' => $invoicesCount,
+                // 'appointments_count' => $appointmentsCount,
             ]
         ];
     }
