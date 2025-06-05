@@ -135,6 +135,14 @@ class AppointmentController extends Controller
     {
         if (Yii::$app->request->isPost) {
             $request = json_decode(Yii::$app->request->rawBody, true);
+            $id = Yii::$app->request->get('id') ?? ($request['id'] ?? null);
+
+            if (!$id) {
+                return [
+                    'success' => false,
+                    'message' => 'Appointment ID is required',
+                ];
+            }
 
             $token = Yii::$app->request->headers->get('Authorization');
             $token = str_replace('Bearer ', '', $token);
@@ -148,7 +156,14 @@ class AppointmentController extends Controller
                 ];
             }
 
-            $appointment = PatientAppointments::findOne($request['id']);
+            $appointment = PatientAppointments::findOne($id);
+            
+            if (!$appointment) {
+                return [
+                    'success' => false,
+                    'message' => 'Appointment not found',
+                ];
+            }
 
             if ($appointment->delete()) {
                 return [

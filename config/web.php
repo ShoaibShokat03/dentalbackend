@@ -47,6 +47,7 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+
                 'POST api/user/register' => 'api/user/register',
                 'POST api/user/login' => 'api/user/login',
                 'GET api/user/profile' => 'api/user/profile',
@@ -161,6 +162,14 @@ $config = [
                 
                 'POST api/prescriptions/delete' => 'api/prescription/delete',
                 'OPTIONS api/prescriptions/delete' => 'api/prescription/delete',
+
+                //invoices
+                'GET api/invoices/list' => 'api/invoice/list',
+                'OPTIONS api/invoices/list' => 'api/invoice/list',
+
+                'POST api/invoices/create' => 'api/invoice/create',
+                'OPTIONS api/invoices/create' => 'api/invoice/create',
+                
             ],
         ],
     ],

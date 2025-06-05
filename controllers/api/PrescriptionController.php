@@ -180,13 +180,16 @@ class PrescriptionController extends Controller
 
     public function actionList()
     {
-        return [
-            'success' => false,
-            'message' => 'Method is not correct!',
-        ];
+        if (!Yii::$app->request->isGet) {
+            return [
+                'success' => false,
+                'message' => 'Method is not correct!',
+            ];
+        }
+    
         $token = Yii::$app->request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $token);
-
+    
         $user = User::findOne(['access_token' => $token]);
         if (!$user) {
             return [
@@ -194,26 +197,26 @@ class PrescriptionController extends Controller
                 'message' => 'Invalid token',
             ];
         }
-
+    
         $request = Yii::$app->request;
         $page = (int)$request->get('page', 1);
         $perpage = (int)$request->get('perpage', 5);
         $sort = $request->get('sort', 'created_at');
         $order = strtolower($request->get('order', 'desc')) === 'desc' ? SORT_DESC : SORT_ASC;
-
+    
         $query = Prescriptions::find();
-
+    
         $total = $query->count();
-
+    
         $data = $query
             ->orderBy([$sort => $order])
             ->offset(($page - 1) * $perpage)
             ->limit($perpage)
             ->asArray()
             ->all();
-
+    
         $patients = User::find()->where(['role' => 'patient'])->asArray()->all();
-
+    
         return [
             'success' => true,
             'message' => 'Data fetched successfully',
