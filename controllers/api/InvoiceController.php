@@ -64,6 +64,7 @@ class InvoiceController extends Controller
             try {
                 $invoice = new Invoices();
                 $invoice->patient_id = $request['patient_id'];
+                $invoice->doctor_id = $request['doctor_id'];
                 $invoice->issued_by = $user->id;
                 $invoice->invoice_number = $request['invoice_number'];
                 $invoice->invoice_date = $request['invoice_date'];
@@ -274,7 +275,7 @@ class InvoiceController extends Controller
         $order = strtolower($request->get('order', 'desc')) === 'desc' ? SORT_DESC : SORT_ASC;
 
         // Build query
-        $query = Invoices::find();
+        $query = Invoices::find()->with(['patient', 'doctor']);
 
         // Apply filters if provided
         $patient_id = $request->get('patient_id', '');
@@ -301,6 +302,13 @@ class InvoiceController extends Controller
             ->limit($perpage)
             ->asArray()
             ->all();
+
+        $data = array_map(function($value) {
+            $value['due_amount'] = ($value['total_amount'] - ($value['discount_amount']??0)) - $value['paid'];
+            //total (not due but total) amount after discount (total amount minus discount amount)
+            $value['after_discount'] = $value['total_amount'] - $value['discount_amount'];
+            return $value;
+        }, $data);
 
         return [
             'success' => true,

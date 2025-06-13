@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $patient_id
- * @property int|null $prescribed_by
+ * @property int|null $doctor_id
  * @property string $prescription_date
  * @property string|null $diagnosis
  * @property string|null $notes
@@ -32,8 +32,9 @@ class Prescriptions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['patient_id'], 'required'],
-            [['patient_id', 'prescribed_by'], 'integer'],
+            [['patient_id', 'mrn_number'], 'required'],
+            [['patient_id', 'doctor_id'], 'integer'],
+            [['mrn_number'], 'string'],
             [['prescription_date', 'created_at', 'updated_at'], 'safe'],
             [['diagnosis', 'notes'], 'string'],
         ];
@@ -46,8 +47,9 @@ class Prescriptions extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'mrn_number' => 'MRN Number',
             'patient_id' => 'Patient ID',
-            'prescribed_by' => 'Prescribed By',
+            'doctor_id' => 'Prescribed By',
             'prescription_date' => 'Prescription Date',
             'diagnosis' => 'Diagnosis',
             'notes' => 'Notes',
@@ -67,5 +69,14 @@ class Prescriptions extends \yii\db\ActiveRecord
     public function getPatient()
     {
         return $this->hasOne(Patients::class, ['id' => 'patient_id']);
+    }
+    public function getDoctor()
+    {
+        return $this->hasOne(User::class, ['id' => 'doctor_id']);
+
+    }
+    public function getPrescriptionItems()
+    {
+        return $this->hasMany(PrescriptionItems::class, ['prescription_id' => 'id']);
     }
 }

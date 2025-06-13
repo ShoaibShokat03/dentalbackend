@@ -62,6 +62,7 @@ class AppointmentController extends Controller
 
             $appointment = new PatientAppointments();
             $appointment->patient_id = $request['patient_id'];
+            $appointment->doctor_id = $request['doctor_id'];
             $appointment->scheduled_by = $user->id;
             $appointment->appointment_date = $request['appointment_date'];
             $appointment->appointment_reason = $request['appointment_reason'];
@@ -244,12 +245,14 @@ class AppointmentController extends Controller
             ->all();
 
         $patients = User::find()->where(['role' => 'patient'])->asArray()->all();
+        $doctors = User::find()->where(['role' => 'doctor'])->asArray()->all();
 
         return [
             'success' => true,
             'message' => 'Data fetched successfully',
             'data' => $data,
             'patients' => $patients,
+            'doctors' => $doctors,
             'meta' => [
                 'total' => $total,
                 'page' => $page,

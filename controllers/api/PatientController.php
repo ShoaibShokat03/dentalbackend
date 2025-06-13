@@ -44,6 +44,29 @@ class PatientController extends Controller
         ];
     }
 
+    private function generateMRN()
+    {
+        $year = date('Y');
+        $prefix = 'PAT';
+        
+        // Get the last patient for this year
+        $lastPatient = Patients::find()
+            ->where(['like', 'mrn_number', $prefix . $year])
+            ->orderBy(['id' => SORT_DESC])
+            ->one();
+
+        if ($lastPatient) {
+            // Extract the number part and increment
+            $lastNumber = (int)substr($lastPatient->mrn_number, -4);
+            $newNumber = $lastNumber + 1;
+        } else {
+            // First patient of the year
+            $newNumber = 1;
+        }
+
+        // Format: PAT-YYYY-XXXX (where XXXX is a 4-digit number)
+        return $prefix . '-' . $year . '-' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
 
     public function actionCreate()
     {
@@ -81,6 +104,7 @@ class PatientController extends Controller
 
             $patient = new Patients();
             $patient->user_id = $patientUser->id;
+            $patient->mrn_number = $this->generateMRN(); // Auto-generate MRN
             $patient->full_name = $request['full_name'];
             $patient->email = $request['email'];
             $patient->father_name = $request['father_name'];
@@ -88,8 +112,7 @@ class PatientController extends Controller
             $patient->gender = $request['gender'];
             $patient->age = $request['age'];
             $patient->address = $request['address'];
-            $patient->medical_history = $request['medical_history'];
-            $patient->allergies = $request['allergies'];
+            $patient->notes = $request['notes'];
             $patient->created_by = $user->id;
             $patient->updated_by = $user->id;
 
@@ -97,6 +120,7 @@ class PatientController extends Controller
                 return [
                     'success' => true,
                     'message' => 'Patient registered successfully',
+                    'patient' => $patient,
                 ];
             }
             return [
@@ -137,7 +161,7 @@ class PatientController extends Controller
             $patient->gender = $request['gender'];
             $patient->age = $request['age'];
             $patient->address = $request['address'];
-            $patient->medical_history = $request['medical_history'];
+            $patient->notes = $request['notes'];
             $patient->created_by = $user->id;
             $patient->updated_by = $user->id;
 
@@ -262,7 +286,7 @@ class PatientController extends Controller
         $order = strtolower($request->get('order', 'desc')) === 'desc' ? SORT_DESC : SORT_ASC;
 
         // Build query
-        $query = Patients::find()->select(['id', 'user_id', 'full_name', 'father_name', 'email', 'contact_number', 'gender', 'age', 'medical_history', 'address', 'allergies']);
+        $query = Patients::find()->select(['id', 'user_id', 'full_name', 'father_name', 'email', 'contact_number', 'gender', 'age', 'notes', 'address']);
 
         $full_name = $request->get('full_name', '');
         if (!empty($name)) {

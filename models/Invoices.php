@@ -23,6 +23,8 @@ use Yii;
  */
 class Invoices extends \yii\db\ActiveRecord
 {
+
+    public $due_amount;
     /**
      * {@inheritdoc}
      */
@@ -80,5 +82,19 @@ class Invoices extends \yii\db\ActiveRecord
     public function getItems()
     {
         return $this->hasMany(InvoiceItems::class, ['invoice_id' => 'id']);
+    }
+    public function getPatient()
+    {
+        return $this->hasOne(Patients::class, ['id' => 'patient_id']);
+    }
+    public function getDoctor()
+    {
+        return $this->hasOne(User::class, ['id' => 'doctor_id']);
+
+    }
+    public function getPrescription()
+    {
+        return $this->hasOne(User::class, ['id' => 'doctor_id']);
+
     }
 }

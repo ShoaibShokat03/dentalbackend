@@ -80,7 +80,7 @@ class UserController extends Controller
                     $doctor->user_id = $user->id;
                     $doctor->gender = $request['gender'];
                     $doctor->date_of_birth = $request['date_of_birth'];
-                    $doctor->blood_group = $request['blood_group'];
+                    $doctor->status = $request['status'];
                     $doctor->phone = $request['phone'];
                     $doctor->address = $request['address'];
                     $doctor->specialization = $request['specialization'];

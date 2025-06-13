@@ -163,6 +163,9 @@ $config = [
                 'POST api/prescriptions/delete' => 'api/prescription/delete',
                 'OPTIONS api/prescriptions/delete' => 'api/prescription/delete',
 
+                'GET api/prescriptions/view' => 'api/prescription/view',
+                'OPTIONS api/prescriptions/view' => 'api/prescription/view',
+
                 //invoices
                 'GET api/invoices/list' => 'api/invoice/list',
                 'OPTIONS api/invoices/list' => 'api/invoice/list',
@@ -170,6 +173,11 @@ $config = [
                 'POST api/invoices/create' => 'api/invoice/create',
                 'OPTIONS api/invoices/create' => 'api/invoice/create',
                 
+                'POST api/invoices/edit' => 'api/invoice/edit',
+                'OPTIONS api/invoices/edit' => 'api/invoice/edit',
+
+                'POST api/invoices/delete' => 'api/invoice/delete',
+                'OPTIONS api/invoices/delete' => 'api/invoice/delete',
             ],
         ],
     ],

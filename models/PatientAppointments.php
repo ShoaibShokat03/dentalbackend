@@ -70,4 +70,8 @@ class PatientAppointments extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Patients::class, ['id' => 'patient_id']);
     }
+    public function getDoctor()
+    {
+        return $this->hasOne(User::class, ['id' => 'doctor_id']);
+    }
 }

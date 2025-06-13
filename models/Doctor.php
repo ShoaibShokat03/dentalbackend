@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $gender
  * @property string $date_of_birth
- * @property string|null $blood_group
+ * @property string|null $status
  * @property string|null $phone
  * @property string|null $address
  * @property string|null $specialization
@@ -43,7 +43,7 @@ class Doctor extends \yii\db\ActiveRecord
             [['date_of_birth', 'created_at', 'updated_at'], 'safe'],
             [['experience', 'created_by', 'update_by'], 'integer'],
             [['commission_percentage'], 'number'],
-            [['blood_group'], 'string', 'max' => 5],
+            [['status'], 'string', 'max' => 20],
             [['phone'], 'string', 'max' => 20],
             [['address'], 'string', 'max' => 500],
             [['specialization', 'qualification'], 'string', 'max' => 255],
@@ -59,7 +59,7 @@ class Doctor extends \yii\db\ActiveRecord
             'id' => 'ID',
             'gender' => 'Gender',
             'date_of_birth' => 'Date Of Birth',
-            'blood_group' => 'Blood Group',
+            'status' => 'Status',
             'phone' => 'Phone',
             'address' => 'Address',
             'specialization' => 'Specialization',
